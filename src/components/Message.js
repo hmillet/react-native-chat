@@ -29,7 +29,7 @@ export default class Message extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>De :{this.state.username}</Text>
+        <Text>De : {this.state.username}</Text>
         <Text>{this.state.message}</Text>
       </View>
     );

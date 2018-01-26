@@ -9,6 +9,7 @@ import {
   View
 } from "react-native";
 import PropTypes from "prop-types";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import Settings from "../config/Settings";
 
@@ -52,7 +53,12 @@ export default class Footer extends React.Component {
             this._sendMessage(this.state.messageToSend);
           }}
         >
-          <Text>OO</Text>
+          <Icon
+            name="send"
+            backgroundColor={Settings.color.footer}
+            color={Settings.color.blue}
+            size={20}
+          />
         </TouchableOpacity>
       </View>
     );
@@ -72,7 +78,9 @@ const styles = StyleSheet.create({
     backgroundColor: Settings.color.footer
   },
   button: {
-    height: 30,
-    backgroundColor: "red"
+    backgroundColor: Settings.color.footer,
+    flexDirection: "column",
+    justifyContent: "center",
+    padding: 12
   }
 });
