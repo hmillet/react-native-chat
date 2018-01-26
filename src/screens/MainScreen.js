@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Button,
+  FlatList,
   StyleSheet,
   Text,
   TextInput,
@@ -9,12 +10,14 @@ import {
 } from "react-native";
 
 import Settings from "../config/Settings";
+import Message from "../components/Message";
 import Footer from "../components/Footer";
 
 export default class MainScreen extends React.Component {
   state = {
     connected: false,
-    username: "hmillet"
+    username: "hmillet",
+    messages: []
   };
 
   static navigationOptions = {
@@ -41,6 +44,14 @@ export default class MainScreen extends React.Component {
       // a message was received
       //alert(e.data);
       console.log(e.data);
+      try {
+        const O_message = JSON.parse(e.data);
+        this.setState(prevState => ({
+          messages: [...prevState.messages, O_message]
+        }));
+      } catch (e) {
+        console.error("Invalid JSON : " + e.data);
+      }
     };
 
     this.ws.onerror = e => {
@@ -81,7 +92,13 @@ export default class MainScreen extends React.Component {
         <ScrollView
           style={styles.container}
           keyboardShouldPersistTaps={"always"}
-        />
+        >
+          <FlatList
+            data={this.state.messages}
+            renderItem={({ item }) => <Message message={item} />}
+            keyExtractor={(item, index) => index}
+          />
+        </ScrollView>
         <Footer sendMessage={this._sendMessage} />
       </View>
     );
